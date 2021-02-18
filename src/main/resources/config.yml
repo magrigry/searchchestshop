@@ -1,0 +1,60 @@
+message:
+  prefix: '&6&lOver&b2&2&lCraft &f- '
+
+  #noshop: 'Can't teleport. No shop referenced'
+  noshop: 'Téléportation impossible. Aucun shop référencé'
+
+  # noshopWithThisId: 'No shop found for this item...'
+  noshopWithThisId: 'Aucun shop trouvé pour cet item...'
+
+  # teleport: 'You have been teleported'
+  teleport: 'Tu as été téléporté'
+
+  # shopSearchUsage: 'No result found... to search a shop among server's shop, use the command &8/shopsearch <item> &fwith auto-completion'
+  shopSearchUsage: 'Aucun résultat... pour recherche un shop parmis les shops du serveur, utilise la commande &8/shopsearch <item> &fen utilisant l''autocomplétion'
+
+# A regex that match all shop that you would reference
+# For example if you want to reference only Adminshop shops you could use
+# shopThatshouldBeReferenced: '(?i)Adminshop' # (?i) make the regex not case sensitive
+shopThatshouldBeReferenced: '(.*)'
+
+# You might have created many shops before using this plugin. Shops will only be referenced when they are created.
+# Setting this to true will also reference them when a transaction is done (for example when a player buy or sell).
+# It could help you to reference more shops but may also have a performance cost
+referenceOnTransactionEvent: false
+
+# If you have many shops referenced, you might not want
+# to send to muche auto complete suggestion
+limitAutoCompleteSuggestion: 100
+
+# Name of the sellable filter
+# sellable: "#sellable"
+sellable: "#vendable"
+
+# Name of the buyable filter
+# buyable: "#buyable"
+buyable: "#achetable"
+
+# Use this to generate a tellraw command https://minecraft.tools/en/tellraw.php
+# /!\ Placeholders are case sensitive
+# Available placeholders are :
+#    %shop_name% = First line of the chestshop signs (usually name of the player)
+#    %item_id% item id which the shop is selling
+#    %coordinates% coordinates of the shop in this format x:0;y:0;z:0
+#    %B_price% Price for buying. Look at B_price. Empty if no buying price define. Correspond to the line 3 of a shop sign
+#    %S_price% Price for selling. Look at S_price. Empty if no selling price define. Correspond to the line 3 of a shop sign
+#    %quantity% quantity that is sell for the define price. Correspond to the line 2 of a shop sign
+#
+# You can Create a click event and run command "/shopteleport %item_id% %coordinates%"
+# to teleport the player to the sign
+teleportationMessage: '["",{"text":"-------------------------------------------\n[Se téléporter]","bold":true,"color":"green","clickEvent":{"action":"run_command","value":"/shopteleport %item_id% %coordinates%"}},{"text":" - Shop de %shop_name%\n","clickEvent":{"action":"run_command","value":"/shopteleport %item_id% %coordinates%"}},{"text":"\u4dc0","bold":true,"color":"green","clickEvent":{"action":"run_command","value":"/shopteleport %item_id% %coordinates%"}},{"text":" ","color":"#DCDDDE","clickEvent":{"action":"run_command","value":"/shopteleport %item_id% %coordinates%"}},{"text":"%B_price% %S_price% Prix pour %quantity% items\n","clickEvent":{"action":"run_command","value":"/shopteleport %item_id% %coordinates%"}},{"text":"-------------------------------------------","bold":true,"color":"green","clickEvent":{"action":"run_command","value":"/shopteleport %item_id% %coordinates%"}}]'
+
+## This format prices placeholders
+# B_price: 'You can buy here for $ %s.'
+B_price: 'Tu peux acheter pour %s Overs.'
+# S_price: 'You can sell here for $ %s.'
+S_price: 'Tu peux vendre pour %s Overs.'
+
+# Does the plugin will try to change coordinates and orientation to teleport the player in front of the sign.
+# Should be true most of the time
+tryToChangeCoordinates: true
