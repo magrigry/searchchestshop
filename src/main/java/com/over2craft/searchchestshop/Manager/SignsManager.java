@@ -1,5 +1,7 @@
 package com.over2craft.searchchestshop.Manager;
 
+import org.bukkit.Bukkit;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +21,20 @@ public class SignsManager {
         for(String path : Storage.getConfig().getConfigurationSection("storage.storage").getKeys(false)){
             HashMap<String, SignWrapper> signs = new HashMap<>();
             for(String path2 : Storage.getConfig().getConfigurationSection("storage.storage."+path).getKeys(false)){
-                signs.put(path2, Storage.getConfig().getObject(String.format("storage.storage.%s.%s", path, path2), SignWrapper.class));
+
+                try {
+                    SignWrapper sw = Storage.getConfig().getObject(String.format("storage.storage.%s.%s", path, path2), SignWrapper.class);
+                    signs.put(path2, sw);
+                } catch (IllegalArgumentException e) {
+                    signs.remove(path2);
+                    if (e.getMessage().equals("unknown world")) {
+                        Bukkit.getLogger().info(String.format("SearchChestShop - Registered sign %s has been removed because the world in which it was does not exists at this moment. If you recently deleted a world, this is the normal behavior", path2));
+                    } else {
+                        throw e;
+                    }
+                }
             }
+
             SignsManager.signs.put(path, signs);
         }
     }

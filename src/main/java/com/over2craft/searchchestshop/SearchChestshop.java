@@ -7,6 +7,7 @@ import com.over2craft.searchchestshop.Manager.SignsManager;
 import com.over2craft.searchchestshop.Manager.Storage;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Objects;
 
@@ -25,6 +26,15 @@ public final class SearchChestshop extends JavaPlugin {
         Objects.requireNonNull(getCommand("shopsearch")).setExecutor(new SearchCommand());
         Objects.requireNonNull(getCommand("shopteleport")).setExecutor(new TeleportCommand());
         getServer().getPluginManager().registerEvents(new ChestShopListener(), this);
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                SignsManager.init();
+            }
+
+        }.runTaskLaterAsynchronously(this, 20000);
 
     }
 
