@@ -20,8 +20,6 @@ public final class SearchChestshop extends JavaPlugin {
         pl = this;
         ConfigurationSerialization.registerClass(SignWrapper.class);
         saveDefaultConfig();
-        Storage.saveDefaultConfig();
-        SignsManager.init();
         Objects.requireNonNull(getCommand("shopsearch")).setTabCompleter(new SearchCommand());
         Objects.requireNonNull(getCommand("shopsearch")).setExecutor(new SearchCommand());
         Objects.requireNonNull(getCommand("shopteleport")).setExecutor(new TeleportCommand());
@@ -31,10 +29,11 @@ public final class SearchChestshop extends JavaPlugin {
 
             @Override
             public void run() {
+                Storage.saveDefaultConfig();
                 SignsManager.init();
             }
 
-        }.runTaskLaterAsynchronously(this, 20000);
+        }.runTaskLaterAsynchronously(this, 1200);
 
     }
 
