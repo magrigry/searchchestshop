@@ -1,4 +1,4 @@
-package com.over2craft.searchchestshop.Manager;
+package com.over2craft.searchchestshop2.Manager;
 
 import org.bukkit.Bukkit;
 
@@ -113,7 +113,7 @@ public class SignsManager {
     }
 
     private static String formatItemId(SignWrapper sign) {
-        return sign.getLine(3).replace(' ', '_');
+        return sign.getItemId();
     }
 
     private static String formatCoordinatesId(SignWrapper sign) {

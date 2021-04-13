@@ -1,25 +1,19 @@
-name: SearchChestshop
+name: SearchChestshop2
 version: ${project.version}
-main: com.over2craft.searchchestshop.SearchChestshop
+main: com.over2craft.searchchestshop2.SearchChestshop
 api-version: 1.16
-depend: [ ChestShop ]
+depend: [ChestShop, SmartInvs]
 
 commands:
-  shopsearch:
+  shopsearch2:
     description: Search an item among shop signs
-    permission: over2craft.shopsearch.use
-
-  shopteleport:
-    description: Teleport to a specific sign shop
-    permission: over2craft.shopsearch.teleport
+    permission: over2craft.shopsearch2.use
+    aliases: []
 
 permissions:
-  over2craft.shopsearch.use:
-    description: Allow shopsearch
+  over2craft.shopsearch2.use:
+    description: Allow shopsearch2
     default: true
-  over2craft.shopsearch.teleport:
-    description: Allow usage of command /shopteleport
-    default: true
-  over2craft.shopsearch.reload:
-    description: Allow shopsearch configuration reload /shopsearch $reload
+  over2craft.shopsearch2.reload:
+    description: Allow shopsearch configuration reload /shopsearch2 $reload
     default: op

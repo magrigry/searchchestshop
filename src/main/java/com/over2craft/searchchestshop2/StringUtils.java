@@ -1,4 +1,4 @@
-package com.over2craft.searchchestshop;
+package com.over2craft.searchchestshop2;
 
 public class StringUtils {
 

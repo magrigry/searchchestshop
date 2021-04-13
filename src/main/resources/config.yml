@@ -1,4 +1,9 @@
 message:
+
+  nextPageGui: "Page suivante"
+  previousPageGui: "Page précédente"
+  inventoryName: "Searchshop"
+
   prefix: '&6&lOver&b2&2&lCraft &f- '
 
   #noshop: 'Can't teleport. No shop referenced'

@@ -1,10 +1,9 @@
-package com.over2craft.searchchestshop;
+package com.over2craft.searchchestshop2;
 
-import com.over2craft.searchchestshop.Commands.SearchCommand;
-import com.over2craft.searchchestshop.Commands.TeleportCommand;
-import com.over2craft.searchchestshop.Manager.SignWrapper;
-import com.over2craft.searchchestshop.Manager.SignsManager;
-import com.over2craft.searchchestshop.Manager.Storage;
+import com.over2craft.searchchestshop2.Commands.SearchCommand;
+import com.over2craft.searchchestshop2.Manager.SignWrapper;
+import com.over2craft.searchchestshop2.Manager.SignsManager;
+import com.over2craft.searchchestshop2.Manager.Storage;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,9 +19,8 @@ public final class SearchChestshop extends JavaPlugin {
         pl = this;
         ConfigurationSerialization.registerClass(SignWrapper.class);
         saveDefaultConfig();
-        Objects.requireNonNull(getCommand("shopsearch")).setTabCompleter(new SearchCommand());
-        Objects.requireNonNull(getCommand("shopsearch")).setExecutor(new SearchCommand());
-        Objects.requireNonNull(getCommand("shopteleport")).setExecutor(new TeleportCommand());
+        Objects.requireNonNull(getCommand("shopsearch2")).setTabCompleter(new SearchCommand());
+        Objects.requireNonNull(getCommand("shopsearch2")).setExecutor(new SearchCommand());
         getServer().getPluginManager().registerEvents(new ChestShopListener(), this);
 
         new BukkitRunnable() {
@@ -42,4 +40,8 @@ public final class SearchChestshop extends JavaPlugin {
         Storage.getConfig().set("storage.storage", SignsManager.signs);
         Storage.saveConfig();
     }
+
+    // TODO : filtre par personne
+    // TODO : auto complétion joueur offline
+    // TODO : catégorie
 }

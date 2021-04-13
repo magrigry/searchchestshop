@@ -1,14 +1,16 @@
-package com.over2craft.searchchestshop.Commands;
+package com.over2craft.searchchestshop2.Commands;
 
-import com.over2craft.searchchestshop.Manager.PlayerWrapper;
-import com.over2craft.searchchestshop.Manager.SignsManager;
-import com.over2craft.searchchestshop.Manager.Storage;
-import com.over2craft.searchchestshop.SearchChestshop;
-import com.over2craft.searchchestshop.StringUtils;
+import com.over2craft.searchchestshop2.Inventories.SmartInv;
+import com.over2craft.searchchestshop2.Items.FrenchTranslation;
+import com.over2craft.searchchestshop2.Manager.SignsFilter;
+import com.over2craft.searchchestshop2.Manager.SignsManager;
+import com.over2craft.searchchestshop2.Manager.Storage;
+import com.over2craft.searchchestshop2.SearchChestshop;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -22,14 +24,26 @@ public class SearchCommand implements TabCompleter, CommandExecutor {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 
         if (args.length == 0) {
-            return SignsManager.getAllItemIds().stream().
+
+            List<String> suggest = SignsManager.getAllItemIds();
+
+            suggest.addAll(FrenchTranslation.getTranslation().values());
+
+            suggest = suggest.stream().
                     filter(value -> value.toUpperCase().contains(args[0].toUpperCase()))
                     .limit(SearchChestshop.pl.getConfig().getInt("limitAutoCompleteSuggestion"))
                     .collect(Collectors.toList());
+
+            return suggest;
         }
 
         if (args.length == 1) {
-            List<String> suggest = SignsManager.getAllItemIds().stream().
+
+            List<String> suggest = SignsManager.getAllItemIds();
+
+            suggest.addAll(FrenchTranslation.getTranslation().values());
+
+            suggest = suggest.stream().
                     filter(value -> value.toUpperCase().contains(args[0].toUpperCase()))
                     .limit(SearchChestshop.pl.getConfig().getInt("limitAutoCompleteSuggestion"))
                     .collect(Collectors.toList());
@@ -82,18 +96,19 @@ public class SearchCommand implements TabCompleter, CommandExecutor {
         }
 
         if (args.length == 1 && sender instanceof Player) {
-            PlayerWrapper pm = new PlayerWrapper(((Player) sender).getPlayer());
-            pm.sendListSignsMessageFor(args[0]);
+            SmartInv.getInventory(new SignsFilter(SignsManager.signs).LikeItemIdWithFr(args[0])).open((Player) sender);
             return true;
         }
 
         if (args.length == 2 && sender instanceof Player) {
-            PlayerWrapper pm = new PlayerWrapper(((Player) sender).getPlayer());
-            pm.sendListSignsMessageFor(args[1]);
+            SmartInv.getInventory(new SignsFilter(SignsManager.signs).LikeItemIdWithFr(args[1])).open((Player) sender);
             return true;
         }
 
-        sender.sendMessage(StringUtils.getMessage("message.shopSearchUsage"));
+        if (sender instanceof HumanEntity) {
+            SmartInv.getInventory(new SignsFilter(SignsManager.signs)).open((Player) sender);
+        }
+
         return true;
     }
 }

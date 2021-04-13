@@ -1,6 +1,6 @@
-package com.over2craft.searchchestshop.Manager;
+package com.over2craft.searchchestshop2.Manager;
 
-import com.over2craft.searchchestshop.SearchChestshop;
+import com.over2craft.searchchestshop2.SearchChestshop;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
