@@ -8,7 +8,7 @@ commands:
   shopsearch2:
     description: Search an item among shop signs
     permission: over2craft.shopsearch2.use
-    aliases: []
+    aliases: [ah, shopsearch]
 
 permissions:
   over2craft.shopsearch2.use:
