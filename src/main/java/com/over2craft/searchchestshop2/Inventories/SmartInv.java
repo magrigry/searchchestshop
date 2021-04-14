@@ -8,7 +8,7 @@ public class SmartInv {
         return SmartInventory.builder()
                 .provider(new ItemsInventory(signsFilter))
                 .size(6, 9)
-                .title("test")
+                .title("Hôtel des ventes")
                 .build();
     }
 
