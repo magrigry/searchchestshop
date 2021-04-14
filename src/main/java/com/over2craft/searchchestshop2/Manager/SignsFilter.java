@@ -94,6 +94,24 @@ public class SignsFilter {
         return this;
     }
 
+    public SignsFilter itemId(String itemIdToCompare) {
+
+        LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();
+
+        ArrayList<String> item_ids = new ArrayList<>();
+
+        signs.forEach((item_id, items) -> {
+
+            if (item_id.toLowerCase().equals(itemIdToCompare.toLowerCase())) {
+                newSigns.put(item_id, items);
+            }
+
+        });
+
+        this.signs = newSigns;
+        return this;
+    }
+
     public SignsFilter LikeItemIdWithFr(String itemIdToCompare) {
 
         LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();

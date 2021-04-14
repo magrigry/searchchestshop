@@ -125,7 +125,7 @@ public class ItemsInventory implements InventoryProvider {
             im.setLore(lore);
             item.setItemMeta(im);
 
-            items[i] = ClickableItem.of(item, e -> SmartInv.getInventory(filters.LikeItemId(finalSign.getItemId())).open((Player) e.getWhoClicked()));
+            items[i] = ClickableItem.of(item, e -> SmartInv.getInventory(filters.itemId(finalSign.getItemId())).open((Player) e.getWhoClicked()));
 
             i++;
         }
