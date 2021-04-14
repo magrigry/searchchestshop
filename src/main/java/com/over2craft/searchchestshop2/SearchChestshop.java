@@ -41,7 +41,4 @@ public final class SearchChestshop extends JavaPlugin {
         Storage.saveConfig();
     }
 
-    // TODO : filtre par personne
-    // TODO : auto complétion joueur offline
-    // TODO : catégorie
 }

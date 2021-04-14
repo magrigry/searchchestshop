@@ -1,5 +1,6 @@
 package com.over2craft.searchchestshop2.Manager;
 
+import com.Acrobot.ChestShop.Signs.ChestShopSign;
 import com.over2craft.searchchestshop2.Items.FrenchTranslation;
 import org.bukkit.Material;
 
@@ -13,6 +14,7 @@ public class SignsFilter {
 
     public boolean stackFiltered = false;
     public boolean sellOrByFiltered = false;
+    public boolean playerOnly = false;
 
     public LinkedHashMap<String, HashMap<String, SignWrapper>> signs = new LinkedHashMap<>();
 
@@ -158,6 +160,27 @@ public class SignsFilter {
 
             if (!newItems.isEmpty()) {
                 newSigns.put(item_id, newItems);
+            }
+        });
+
+        this.signs = newSigns;
+        return this;
+    }
+
+    public SignsFilter playerOnly() {
+
+        playerOnly = true;
+
+        LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();
+
+        signs.forEach((item_id, items) -> {
+
+            for (Map.Entry<String, SignWrapper> entry : items.entrySet()) {
+                SignWrapper sign = entry.getValue();
+                if (!ChestShopSign.isAdminShop(sign.getLine(0))) {
+                    newSigns.put(item_id, items);
+                    break;
+                }
             }
         });
 

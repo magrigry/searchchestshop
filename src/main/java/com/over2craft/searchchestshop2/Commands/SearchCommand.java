@@ -6,6 +6,8 @@ import com.over2craft.searchchestshop2.Manager.SignsFilter;
 import com.over2craft.searchchestshop2.Manager.SignsManager;
 import com.over2craft.searchchestshop2.Manager.Storage;
 import com.over2craft.searchchestshop2.SearchChestshop;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +16,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -50,6 +53,7 @@ public class SearchCommand implements TabCompleter, CommandExecutor {
 
             suggest.add(SearchChestshop.pl.getConfig().getString("sellable"));
             suggest.add(SearchChestshop.pl.getConfig().getString("buyable"));
+            suggest.add("#shop_de");
 
             if (sender.hasPermission("over2craft.shopsearch.reload")) {
                 suggest.add("$reload");
@@ -70,6 +74,14 @@ public class SearchCommand implements TabCompleter, CommandExecutor {
             if (Objects.equals(SearchChestshop.pl.getConfig().getString("buyable"), args[0])) {
                 return SignsManager.getAllBuyableItemIds().stream()
                         .limit(SearchChestshop.pl.getConfig().getInt("limitAutoCompleteSuggestion"))
+                        .collect(Collectors.toList());
+            }
+
+            if (Objects.equals("#shop_de", args[0])) {
+                return Arrays.stream(Bukkit.getOfflinePlayers()).
+                        limit(20)
+                        .map(OfflinePlayer::getName)
+                        .filter(name -> name.contains(args[1]))
                         .collect(Collectors.toList());
             }
 

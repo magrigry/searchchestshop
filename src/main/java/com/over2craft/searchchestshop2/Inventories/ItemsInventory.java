@@ -75,16 +75,11 @@ public class ItemsInventory implements InventoryProvider {
 
             SignWrapper buyLowerPrice = null;
             SignWrapper sellHigherPrice = null;
-            boolean aPlayerHasASign = false;
 
             for (Map.Entry<String, SignWrapper> entry : filters.signs.get(key).entrySet()) {
 
                 String id = entry.getKey();
                 SignWrapper sign = entry.getValue();
-
-                if (!ChestShopSign.isAdminShop(sign.getLine(0))) {
-                    aPlayerHasASign = true;
-                }
 
                 if (buyLowerPrice == null && sign.hasBuyPrice()) {
                     buyLowerPrice = sign;
@@ -120,11 +115,11 @@ public class ItemsInventory implements InventoryProvider {
             List<String> lore = im.getLore() == null ? new ArrayList<>() : im.getLore();
 
             if (buyLowerPrice != null && buyLowerPrice.hasBuyPrice()) {
-                lore.add(String.format("§f%s §avend le moins cher pour §f%s Overs", buyLowerPrice.getLine(0), buyLowerPrice.getExactBuyPrice()));
+                lore.add(String.format("§f%s §avend pour le moins cher à §f%s Overs", buyLowerPrice.getLine(0), buyLowerPrice.getExactBuyPrice()));
             }
 
             if (sellHigherPrice != null && sellHigherPrice.hasSellPrice()) {
-                lore.add(String.format("§f%s §aachète pour le plus cher à §f%s Overs", sellHigherPrice.getLine(0), sellHigherPrice.getExactSellPrice()));
+                lore.add(String.format("§f%s §arachète pour le plus cher à §f%s Overs", sellHigherPrice.getLine(0), sellHigherPrice.getExactSellPrice()));
             }
 
             im.setLore(lore);
@@ -180,6 +175,15 @@ public class ItemsInventory implements InventoryProvider {
 
         contents.set(5, 5, ClickableItem.of(createGuiItem(Material.ARROW, "Page suivante"),
                 e -> SmartInv.getInventory(filters).open(player, pagination.next().getPage())));
+
+        if (!filters.playerOnly) {
+            contents.set(5, 6, ClickableItem.of(createGuiItem(Material.PLAYER_HEAD,
+                    "Voir uniquement les shop joueur", "N'afficher que les shop des joueurs", "(ne plus afficher les adminshop)"),
+                    e -> SmartInv.getInventory(filters.playerOnly()).open(player)));
+        } else {
+            contents.set(5, 6, ClickableItem.empty(createGuiItem(Material.BARRIER,
+                    "Filtre déjà appliqué", "Utilise le papier pour", "reset les filtres")));
+        }
 
         if (!filters.sellOrByFiltered) {
 
