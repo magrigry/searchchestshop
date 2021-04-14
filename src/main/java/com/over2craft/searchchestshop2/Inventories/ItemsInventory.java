@@ -47,11 +47,11 @@ public class ItemsInventory implements InventoryProvider {
                 lore.add("");
 
                 if (!signWrapper.getExactBuyPrice().equals(BigDecimal.valueOf(-1))) {
-                    lore.add(String.format("§aAchetez ici pour §f%s Overs", signWrapper.getExactBuyPrice()));
+                    lore.add(String.format("§aAchetez ici pour §f%s Overs", signWrapper.getExactBuyPrice().divide(BigDecimal.valueOf(Integer.parseInt(signWrapper.getLine(1))), RoundingMode.HALF_UP)));
                 }
 
                 if (!signWrapper.getExactSellPrice().equals(BigDecimal.valueOf(-1))) {
-                    lore.add(String.format("§aVendez ici pour §f%s Overs", signWrapper.getExactSellPrice()));
+                    lore.add(String.format("§aVendez ici pour §f%s Overs", signWrapper.getExactSellPrice().divide(BigDecimal.valueOf(Integer.parseInt(signWrapper.getLine(1))), RoundingMode.HALF_UP)));
                 }
 
                 lore.add("");
