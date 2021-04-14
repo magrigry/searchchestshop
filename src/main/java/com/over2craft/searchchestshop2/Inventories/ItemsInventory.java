@@ -32,9 +32,6 @@ public class ItemsInventory implements InventoryProvider {
 
         if (filters.signs.size() == 1) {
 
-            System.out.println(filters.signs.keySet().toArray()[0]);
-            System.out.println(filters.signs.get(filters.signs.keySet().toArray()[0]));
-
             HashMap<String, SignWrapper> signsWrappers =  filters.signs.get(filters.signs.keySet().toArray()[0]);
 
             ClickableItem[] items = new ClickableItem[signsWrappers.size()];
@@ -130,8 +127,6 @@ public class ItemsInventory implements InventoryProvider {
                 lore.add(String.format("§f%s §aachète pour le plus cher à §f%s Overs", sellHigherPrice.getLine(0), sellHigherPrice.getExactSellPrice()));
             }
 
-            System.out.println(lore);
-
             im.setLore(lore);
             item.setItemMeta(im);
 
@@ -162,11 +157,11 @@ public class ItemsInventory implements InventoryProvider {
                             "N'affichez que les items",
                             "qui ne sont pas stackable",
                             "(épée, pioche, etc...)"),
-                    e -> SmartInv.getInventory(filters.notStackable()).open(player, pagination.getPage())));
+                    e -> SmartInv.getInventory(filters.notStackable()).open(player)));
 
             contents.set(5, 1, ClickableItem.of(createGuiItem(Material.DIAMOND,
                     "Items stackable", "(comme le bois, le diamants, etc...)"),
-                    e -> SmartInv.getInventory(filters.stackable()).open(player, pagination.getPage())));
+                    e -> SmartInv.getInventory(filters.stackable()).open(player)));
 
         } else {
 
@@ -181,7 +176,7 @@ public class ItemsInventory implements InventoryProvider {
                 e -> SmartInv.getInventory(filters).open(player, pagination.previous().getPage())));
 
         contents.set(5, 4, ClickableItem.of(createGuiItem(Material.PAPER, "Remettre à 0 les filtres"),
-                e -> SmartInv.getInventory(new SignsFilter(SignsManager.signs)).open(player, pagination.getPage())));
+                e -> SmartInv.getInventory(new SignsFilter(SignsManager.signs)).open(player)));
 
         contents.set(5, 5, ClickableItem.of(createGuiItem(Material.ARROW, "Page suivante"),
                 e -> SmartInv.getInventory(filters).open(player, pagination.next().getPage())));
@@ -190,11 +185,11 @@ public class ItemsInventory implements InventoryProvider {
 
             contents.set(5, 7, ClickableItem.of(createGuiItem(Material.HONEYCOMB,
                     "Vente uniquement", "Afficher uniquement les items", "que vous pouvez vendre auprès", "des shops"),
-                    e -> SmartInv.getInventory(filters.sellableOnly()).open(player, pagination.getPage())));
+                    e -> SmartInv.getInventory(filters.sellableOnly()).open(player)));
 
             contents.set(5, 8, ClickableItem.of(createGuiItem(Material.STONE,
                     "Achat uniquement", "Afficher uniquement les items", "que vous pouvez acheter aurpès", "des shops"),
-                    e -> SmartInv.getInventory(filters.buyableOnly()).open(player, pagination.getPage())));
+                    e -> SmartInv.getInventory(filters.buyableOnly()).open(player)));
         } else {
             contents.set(5, 7, ClickableItem.empty(createGuiItem(Material.BARRIER,
                     "Filtre déjà appliqué", "Utilise le papier pour", "reset les filtres")));
