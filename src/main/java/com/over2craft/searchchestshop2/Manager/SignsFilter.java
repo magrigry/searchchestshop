@@ -80,8 +80,6 @@ public class SignsFilter {
 
         LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();
 
-        ArrayList<String> item_ids = new ArrayList<>();
-
         signs.forEach((item_id, items) -> {
 
             if (item_id.toLowerCase().contains(itemIdToCompare.toLowerCase())) {
@@ -98,8 +96,6 @@ public class SignsFilter {
 
         LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();
 
-        ArrayList<String> item_ids = new ArrayList<>();
-
         signs.forEach((item_id, items) -> {
 
             if (item_id.toLowerCase().equals(itemIdToCompare.toLowerCase())) {
@@ -115,8 +111,6 @@ public class SignsFilter {
     public SignsFilter LikeItemIdWithFr(String itemIdToCompare) {
 
         LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();
-
-        ArrayList<String> item_ids = new ArrayList<>();
 
         signs.forEach((item_id, items) -> {
 
@@ -196,6 +190,28 @@ public class SignsFilter {
             for (Map.Entry<String, SignWrapper> entry : items.entrySet()) {
                 SignWrapper sign = entry.getValue();
                 if (!ChestShopSign.isAdminShop(sign.getLine(0))) {
+                    newSigns.put(item_id, items);
+                    break;
+                }
+            }
+        });
+
+        this.signs = newSigns;
+        return this;
+    }
+
+    public SignsFilter player(String playerName) {
+
+        playerOnly = true;
+
+        LinkedHashMap<String, HashMap<String, SignWrapper>> newSigns = new LinkedHashMap<>();
+
+        signs.forEach((item_id, items) -> {
+
+            for (Map.Entry<String, SignWrapper> entry : items.entrySet()) {
+                SignWrapper sign = entry.getValue();
+                if (sign.getLine(0).toLowerCase().equals(playerName.toLowerCase())) {
+
                     newSigns.put(item_id, items);
                     break;
                 }

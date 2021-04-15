@@ -86,7 +86,7 @@ public class ItemsInventory implements InventoryProvider {
                 }
 
                 if (sign.hasBuyPrice()
-                    && (buyLowerPrice.getExactBuyPrice().divide(BigDecimal.valueOf(Integer.parseInt(buyLowerPrice.getLine(1))), RoundingMode.HALF_UP)).compareTo(sign.getExactBuyPrice()) > 0) {
+                    && (buyLowerPrice.getExactBuyPrice().divide(BigDecimal.valueOf(Integer.parseInt(buyLowerPrice.getLine(1))), RoundingMode.HALF_UP)).compareTo(sign.getExactBuyPrice().divide(BigDecimal.valueOf(Integer.parseInt(sign.getLine(1))), RoundingMode.HALF_UP)) > 0) {
                     buyLowerPrice = sign;
                 }
 
@@ -95,7 +95,7 @@ public class ItemsInventory implements InventoryProvider {
                 }
 
                 if (sign.hasSellPrice()
-                    && (sellHigherPrice.getExactSellPrice().divide(BigDecimal.valueOf(Integer.parseInt(sellHigherPrice.getLine(1))), RoundingMode.HALF_UP)).compareTo(sign.getExactSellPrice()) < 0) {
+                    && (sellHigherPrice.getExactSellPrice().divide(BigDecimal.valueOf(Integer.parseInt(sellHigherPrice.getLine(1))), RoundingMode.HALF_UP)).compareTo(sign.getExactSellPrice().divide(BigDecimal.valueOf(Integer.parseInt(sign.getLine(1))), RoundingMode.HALF_UP)) < 0) {
                     sellHigherPrice = sign;
                 }
             }
