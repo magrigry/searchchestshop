@@ -58,6 +58,8 @@ public class SearchCommand implements TabCompleter, CommandExecutor {
             if (sender.hasPermission("over2craft.shopsearch.reload")) {
                 suggest.add("$reload");
                 suggest.add("$reload-storage");
+                suggest.add("$save-storage");
+                suggest.add("$remove_id");
             }
 
             return suggest;
@@ -104,6 +106,16 @@ public class SearchCommand implements TabCompleter, CommandExecutor {
             Storage.reloadConfig();
             SignsManager.init();
             sender.sendMessage("SearchChestShop storage.yml reloaded.");
+            return true;
+        }
+
+        if (args.length == 1 && args[0].equals("$save-storage")) {
+            if (!SignsManager.signs.isEmpty()) {
+                Storage.getConfig().set("storage.storage", SignsManager.signs);
+                Storage.saveConfig();
+                sender.sendMessage("SearchChestShop storage.yml saved.");
+            }
+            sender.sendMessage("SearchChestShop storage.yml not saved because loaded data are empty.");
             return true;
         }
 

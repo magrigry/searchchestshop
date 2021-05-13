@@ -37,8 +37,10 @@ public final class SearchChestshop extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Storage.getConfig().set("storage.storage", SignsManager.signs);
-        Storage.saveConfig();
+        if (!SignsManager.signs.isEmpty()) {
+            Storage.getConfig().set("storage.storage", SignsManager.signs);
+            Storage.saveConfig();
+        }
     }
 
 }
