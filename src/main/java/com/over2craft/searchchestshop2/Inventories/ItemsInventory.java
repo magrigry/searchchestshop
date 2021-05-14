@@ -60,7 +60,7 @@ public class ItemsInventory implements InventoryProvider {
                 im.setLore(lore);
                 item.setItemMeta(im);
 
-                items[i] =  ClickableItem.of(item, e -> e.getWhoClicked().teleport(signWrapper.getLocation()));
+                items[i] =  ClickableItem.of(item, e -> signWrapper.teleportPlayer((Player) e.getWhoClicked()));
 
                 i++;
             }

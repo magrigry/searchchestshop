@@ -3,7 +3,10 @@ package com.over2craft.searchchestshop2.Manager;
 import com.Acrobot.Breeze.Utils.MaterialUtil;
 import com.Acrobot.Breeze.Utils.PriceUtil;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.math.BigDecimal;
@@ -57,6 +60,21 @@ public class SignWrapper implements ConfigurationSerializable {
         this.lines = new String[]{lines.get(0), lines.get(1), lines.get(2), lines.get(3)};
         this.location = location;
         this.itemStack = itemStack;
+    }
+
+    public void teleportPlayer(Player player) {
+
+        if (!(getLocation().getBlock().getState() instanceof Sign)
+            || !((Sign) getLocation().getBlock().getState()).getLine(3).equals(getLine(3))
+            || !((Sign) getLocation().getBlock().getState()).getLine(2).equals(getLine(2))
+            || !((Sign) getLocation().getBlock().getState()).getLine(1).equals(getLine(1))
+            || !((Sign) getLocation().getBlock().getState()).getLine(0).equals(getLine(0))
+        ) {
+            SignsManager.remove(this);
+            player.sendMessage("§6Over§b2§2Craft §f- Oups... ce shop n'existe plus, il a été supprimé de la liste.");
+        }
+
+        player.teleport(getLocation());
     }
 
     public String[] getLines() {
