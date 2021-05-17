@@ -7,8 +7,11 @@ import com.Acrobot.ChestShop.Events.ShopDestroyedEvent;
 import com.Acrobot.ChestShop.Events.TransactionEvent;
 import com.over2craft.searchchestshop2.Manager.SignWrapper;
 import com.over2craft.searchchestshop2.Manager.SignsManager;
+import com.over2craft.searchchestshop2.Manager.Storage;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -40,6 +43,18 @@ public class ChestShopListener implements Listener {
         Pattern pattern = Pattern.compile(Objects.requireNonNull(SearchChestshop.pl.getConfig().getString("shopThatshouldBeReferenced")));
         Matcher matcher = pattern.matcher(shopName);
         return matcher.find();
+    }
+
+    private boolean loaded = false;
+
+    @EventHandler
+    public void playerLogin(PlayerJoinEvent e) {
+        if (!loaded) {
+            Storage.saveDefaultConfig();
+            SignsManager.init();
+            loaded = true;
+            Bukkit.getLogger().info("Loading storage");
+        }
     }
 
 }

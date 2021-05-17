@@ -23,16 +23,6 @@ public final class SearchChestshop extends JavaPlugin {
         Objects.requireNonNull(getCommand("shopsearch2")).setExecutor(new SearchCommand());
         getServer().getPluginManager().registerEvents(new ChestShopListener(), this);
 
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                Storage.saveDefaultConfig();
-                SignsManager.init();
-            }
-
-        }.runTaskLaterAsynchronously(this, 1200);
-
     }
 
     @Override
