@@ -53,7 +53,7 @@ public class ChestShopListener implements Listener {
             Storage.saveDefaultConfig();
             SignsManager.init();
             loaded = true;
-            Bukkit.getLogger().info("Loading storage");
+            Bukkit.getLogger().info("[SearchChestShop] Loading storage");
         }
     }
 
